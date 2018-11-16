@@ -6,7 +6,9 @@ import com.imooc.dto.OrderDTO;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.form.OrderForm;
+import com.imooc.service.BuyerService;
 import com.imooc.service.OrderService;
+import com.imooc.service.impl.BuyerServiceImpl;
 import com.imooc.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ import java.util.Map;
 public class BuyerOrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private BuyerService buyerService;
     //创建订单
     @PostMapping("/create")
     public ResultVO<Map<String,String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
@@ -48,7 +52,7 @@ public class BuyerOrderController {
     }
     //订单列表
     @GetMapping("/list")
-    public ResultVO<Map<String,String>> list(@RequestParam("openid") String openid,
+    public ResultVO<OrderDTO> list(@RequestParam("openid") String openid,
                                              @RequestParam(value = "page",defaultValue = "0") Integer page,
                                              @RequestParam(value = "size",defaultValue = "10") Integer size){
         if (StringUtils.isEmpty(openid)){
@@ -61,5 +65,20 @@ public class BuyerOrderController {
 
     }
     //订单详情
+    @GetMapping("/detail")
+    public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
+                                     @RequestParam("orderid") String orderid){
+        //TODO 查询只要orderid就行，但是为了安全，要有openid
+
+        OrderDTO orderDTO=buyerService.findOrderOne(openid,orderid );
+        return ResultVOUtil.success(orderDTO);
+    }
     //取消订单
+    @PostMapping("/cancel")
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderid") String orderid){
+        //TODO 不安全的做法
+        OrderDTO orderDTO=buyerService.cancelOrder(openid,orderid );
+        return ResultVOUtil.success();
+    }
 }

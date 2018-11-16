@@ -6,6 +6,9 @@ spring:
     url: jdbc:mysql://10.141.4.199/sell?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+#    设置全局只要是空的字段都不返回到结果中
+#  jackson:
+#    default-property-inclusion: non_null
 server:
   servlet:
     context-path: /sell
