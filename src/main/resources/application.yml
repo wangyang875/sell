@@ -21,3 +21,10 @@ server:
 ##  指定类的日志级别是debug,默认是info
 #  level:
 #     com.imooc.LoggerTest: debug
+wechat:
+    mpAppId: 1111
+    mpAppSecret: qwdeafefrffasa
+    mchId: 1445123131
+    mchKey: 012f1sf15swf1r2f1s12
+    Keypath: F:\key
+    notifyUrl: localhost:8080/sell/pay/notify
