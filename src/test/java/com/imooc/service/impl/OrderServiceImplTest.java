@@ -4,6 +4,7 @@ import com.imooc.dataobject.OrderDetail;
 import com.imooc.dto.OrderDTO;
 import com.imooc.enums.OrderStatusEnum;
 import com.imooc.enums.PayStatusEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class OrderServiceImplTest {
     @Autowired
     private OrderServiceImpl orderService;
@@ -80,5 +82,12 @@ public class OrderServiceImplTest {
         OrderDTO orderDTO=orderService.findone("1542112917249405292");
         OrderDTO result=orderService.paid(orderDTO);
         Assert.assertEquals(PayStatusEnum.SUCESS.getCode(),result.getPayStatus());
+    }
+    @Test
+    public void list(){
+        PageRequest pageRequest=new PageRequest(0, 7);
+        Page<OrderDTO> orderDTOpage=orderService.findlist(pageRequest);
+        log.info("orderdtoPage={}", orderDTOpage.getContent());
+        Assert.assertNotEquals(0, orderDTOpage.getTotalElements() );
     }
 }

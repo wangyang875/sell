@@ -1,5 +1,6 @@
 package com.imooc.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.dataobject.OrderDetail;
 import com.imooc.enums.OrderStatusEnum;
@@ -21,15 +22,28 @@ public class OrderDTO {
     String buyerAddress;
     String buyerPhone;
     String buyerOpenid;
-    Integer orderStatus= OrderStatusEnum.NEW.getCode();
-    Integer payStatus= PayStatusEnum.WAIT.getCode();
+    Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    Integer payStatus = PayStatusEnum.WAIT.getCode();
     BigDecimal orderAmount;
     //    创建时间
     @JsonSerialize(using = Data2LongSerializer.class)//自己写一个类用来转换日期的格式然后用注解导入
             Date createTime;
     //    更新时间
 //    @JsonSerialize(using = Data2LongSerializer.class)
-             Date updateTime;
-    List<OrderDetail> orderDetailList=new ArrayList<>();
+    Date updateTime;
+    List<OrderDetail> orderDetailList = new ArrayList<>();
+
     //默认是一个空的list，可以避免返回为null,如果不需要返回就设置null就不返回
+    /*
+    下面写的两个方法不能在获取orderDTO的时候返回给前端
+    用@JsonIgnore可以使其在转成Json格式的时候被忽略掉
+     */
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+       return OrderStatusEnum.getOrderStatusEnum(orderStatus);
+    }
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum(){
+        return PayStatusEnum.getPayStatusEnum(payStatus);
+    }
 }

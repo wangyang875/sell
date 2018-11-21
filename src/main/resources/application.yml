@@ -22,8 +22,8 @@ server:
 #  level:
 #     com.imooc.LoggerTest: debug
 wechat:
-    mpAppId: 1111
-    mpAppSecret: qwdeafefrffasa
+    mpAppId: wx3cd7106dd645dbba
+    mpAppSecret: 7482cf813d523521829a2a54ec1478c0
     mchId: 1445123131
     mchKey: 012f1sf15swf1r2f1s12
     Keypath: F:\key
