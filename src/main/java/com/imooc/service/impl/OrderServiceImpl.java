@@ -44,9 +44,13 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private PayService payService;
 
+    /**
+     * 创建订单
+     * @param orderDTO
+     * @return
+     */
     @Override
     @Transactional
-    /*创建订单*/
     public OrderDTO create(OrderDTO orderDTO) {
         String orderId = KeyUtil.getUnique();
 
@@ -84,10 +88,14 @@ public class OrderServiceImpl implements OrderService {
         return orderDTO;
     }
 
+    /**
+     * 查询单个订单
+     * @param orderId
+     * @return
+     */
     @Override
-    /*查询单个订单*/
     public OrderDTO findone(String orderId) {
-        OrderMaster orderMaster = orderMasterRepository.getOne(orderId);
+        OrderMaster orderMaster = orderMasterRepository.findByOrderId(orderId);
         if (orderMaster == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
@@ -102,6 +110,12 @@ public class OrderServiceImpl implements OrderService {
         return orderDTO;
     }
 
+    /**
+     * 查询订单（买家）
+     * @param buyerOpenid
+     * @param pageable
+     * @return
+     */
     @Override
     public Page<OrderDTO> findlist(String buyerOpenid, Pageable pageable) {
         Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
@@ -110,6 +124,11 @@ public class OrderServiceImpl implements OrderService {
         return orderDTOPage;
     }
 
+    /**
+     * 取消订单（买家）
+     * @param orderDTO
+     * @return
+     */
     @Override
     @Transactional
     public OrderDTO cancel(OrderDTO orderDTO) {
@@ -144,6 +163,11 @@ public class OrderServiceImpl implements OrderService {
         return orderDTO;
     }
 
+    /**
+     * 完结订单
+     * @param orderDTO
+     * @return
+     */
     @Override
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
@@ -164,6 +188,11 @@ public class OrderServiceImpl implements OrderService {
         return orderDTO;
     }
 
+    /**
+     * 支付订单
+     * @param orderDTO
+     * @return
+     */
     @Override
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
