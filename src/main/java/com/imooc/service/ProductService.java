@@ -12,6 +12,11 @@ public interface ProductService {
     List<ProductInfo> findUpAll();
     Page<ProductInfo> findAll(Pageable pageable);
     ProductInfo save(ProductInfo productInfo);
+    /*
+    商品上下架
+     */
+    ProductInfo off_sale(String productId);
+    ProductInfo on_sale(String productId);
     //加库存
 void increaseStock(List<CartDTO> cartDTOList);
     //减库存

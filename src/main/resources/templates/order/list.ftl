@@ -1,14 +1,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>卖家商品列表</title>
+    <title>卖家订单列表</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <div class="row clearfix">
+        <#include "../common/head.ftl">
         <div class="col-md-12 column">
-            <table class="table table-condensed table-bordered">
+            <table class="table table-condensed">
                 <thead>
                 <tr>
                     <th>订单ID</th>
@@ -33,9 +34,9 @@
     <td>${orderDTO.getOrderStatusEnum().msg}</td>
     <td>${orderDTO.getPayStatusEnum().msg}</td>
     <td>${orderDTO.createTime}</td>
-    <td>详情</td>
+    <td><a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
     <td>
-    <#if orderDTO.getOrderStatusEnum().msg!="已取消">
+    <#if orderDTO.getOrderStatusEnum().msg=="新订单">
         <a href="/sell/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
     </#if>
     </td>

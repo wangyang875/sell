@@ -20,17 +20,55 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductInfoRepository repository;
 
+    /**
+     * 商品下架
+     * @param productId
+     * @return
+     */
+    @Override
+    public ProductInfo off_sale(String productId) {
+        ProductInfo productInfo=repository.getOne(productId);
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        return repository.save(productInfo);
+
+    }
+
+    /**
+     * 商品上架
+     * @param productId
+     * @return
+     */
+    @Override
+    public ProductInfo on_sale(String productId) {
+        ProductInfo productInfo=repository.getOne(productId);
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        return repository.save(productInfo);
+    }
+
+    /**
+     * 查询一个商品
+     * @param productId
+     * @return
+     */
     @Override
     public ProductInfo findOne(String productId) {
         return repository.findByProductId(productId);
     }
 
-
+    /**
+     * 查询所有在架的商品
+     * @return
+     */
     @Override
     public List<ProductInfo> findUpAll() {
         return repository.findByProductStatus(ProductStatusEnum.UP.getCode());
     }
 
+    /**
+     * 分页查询所有商品
+     * @param pageable
+     * @return
+     */
     @Override
     public Page<ProductInfo> findAll(Pageable pageable) {
         return repository.findAll(pageable);
