@@ -22,12 +22,19 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 商品下架
+     *
      * @param productId
      * @return
      */
     @Override
     public ProductInfo off_sale(String productId) {
-        ProductInfo productInfo=repository.getOne(productId);
+        ProductInfo productInfo = repository.findByProductId(productId);
+        if (productInfo==null){
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.getProductStatus().equals(1)){
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
         return repository.save(productInfo);
 
@@ -35,18 +42,26 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 商品上架
+     *
      * @param productId
      * @return
      */
     @Override
     public ProductInfo on_sale(String productId) {
-        ProductInfo productInfo=repository.getOne(productId);
+        ProductInfo productInfo = repository.findByProductId(productId);
+        if (productInfo==null){
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.getProductStatus().equals(0)){
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
         productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
         return repository.save(productInfo);
     }
 
     /**
      * 查询一个商品
+     *
      * @param productId
      * @return
      */
@@ -57,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 查询所有在架的商品
+     *
      * @return
      */
     @Override
@@ -66,6 +82,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 分页查询所有商品
+     *
      * @param pageable
      * @return
      */
@@ -84,12 +101,12 @@ public class ProductServiceImpl implements ProductService {
      * 加库存
      */
     public void increaseStock(List<CartDTO> cartDTOList) {
-        for (CartDTO cartDTO: cartDTOList){
+        for (CartDTO cartDTO : cartDTOList) {
             ProductInfo productInfo = repository.getOne(cartDTO.getProductId());
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
-            Integer result=productInfo.getProductStock()+cartDTO.getProductQuantity();
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
             productInfo.setProductStock(result);
             repository.save(productInfo);
         }

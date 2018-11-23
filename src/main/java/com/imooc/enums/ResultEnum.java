@@ -24,7 +24,9 @@ public enum ResultEnum {
     PRODUCT_OFF_FAIL(25,"商品下架失败！"),
     PRODUCT_OFF_SUCCESS(26,"商品下架成功！"),
     PRODUCT_ON_FAIL(27,"商品上架失败！"),
-    PRODUCT_ON_SUCCESS(28,"商品上架成功！")
+    PRODUCT_ON_SUCCESS(28,"商品上架成功！"),
+    PRODUCT_STATUS_ERROR(29,"商品状态不正确"),
+    PRODUCT_INDEX_ADD_SUCCESS(30,"商品修改或添加成功！")
     ;
     private Integer code;
     private String msg;

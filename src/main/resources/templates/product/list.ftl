@@ -52,6 +52,7 @@
         </div>
     <#--分页-->
         <div class="col-md-12 column">
+            <button type="button" class="btn btn-default btn-success"><a href="/sell/seller/product/index">新增商品</a></button>
             <ul class="pagination pull-right">
                 <#if currentPage lte 1>
                 <li class="disabled">
