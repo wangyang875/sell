@@ -6,8 +6,8 @@
         <li>
             <a href="/sell/seller/product/list">商品</a>
         </li>
-        <li class="disabled">
-            <a href="#">信息</a>
+        <li>
+            <a href="/sell/seller/category/list">类目管理</a>
         </li>
         <li class="dropdown pull-right">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>

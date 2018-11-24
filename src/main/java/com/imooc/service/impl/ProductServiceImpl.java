@@ -91,6 +91,16 @@ public class ProductServiceImpl implements ProductService {
         return repository.findAll(pageable);
     }
 
+    /**
+     * 查询某类目下的所有商品
+     * @param categoryType
+     * @return
+     */
+    @Override
+    public Page<ProductInfo> findByCategoryType(Integer categoryType,Pageable pageable) {
+        return repository.findByCategoryType(categoryType,pageable);
+    }
+
     @Override
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);

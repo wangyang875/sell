@@ -12,6 +12,7 @@ public interface ProductService {
     List<ProductInfo> findUpAll();
     Page<ProductInfo> findAll(Pageable pageable);
     ProductInfo save(ProductInfo productInfo);
+    Page<ProductInfo> findByCategoryType(Integer categoryType,Pageable pageable);
     /*
     商品上下架
      */

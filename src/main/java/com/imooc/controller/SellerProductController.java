@@ -138,9 +138,11 @@ public class SellerProductController {
 
             if (StringUtils.isEmpty(productForm.getProductId())) {
                 productForm.setProductId(KeyUtil.getUnique());
+            }else {
+                productInfo = productService.findOne(productForm.getProductId());
             }
         try {
-            productInfo = productService.findOne(productForm.getProductId());
+
             BeanUtils.copyProperties(productForm, productInfo);
             productService.save(productInfo);
         } catch (SellException e) {
