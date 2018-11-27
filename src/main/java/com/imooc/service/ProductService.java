@@ -13,6 +13,7 @@ public interface ProductService {
     Page<ProductInfo> findAll(Pageable pageable);
     ProductInfo save(ProductInfo productInfo);
     Page<ProductInfo> findByCategoryType(Integer categoryType,Pageable pageable);
+    List<ProductInfo> findByCategoryType(Integer categoryType);
     /*
     商品上下架
      */

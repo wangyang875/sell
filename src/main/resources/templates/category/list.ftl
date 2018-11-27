@@ -12,10 +12,10 @@
             <table class="table table-condensed">
                 <thead>
                 <tr>
-
+                    <th>类目ID</th>
                     <th>类目名称</th>
                     <th>类目编号</th>
-                    <th>类目ID</th>
+
                     <th>创建时间</th>
                     <th>修改时间</th>
                     <th>操作</th>
@@ -25,10 +25,9 @@
                 <tbody>
 <#list productCategoryPage.content as category>
 <tr>
-
+    <td>${category.categoryId}</td>
     <td>${category.categoryName}</td>
     <td>${category.categoryType}</td>
-    <td>${category.categoryId}</td>
     <td>${category.createTime}</td>
     <td>${category.updateTime}</td>
     <td><a href="/sell/seller/category/index1?categoryId=${category.categoryId}">查看商品</a></td>
@@ -48,14 +47,14 @@
                 </li>
                 <#else >
                  <li>
-                     <a href="/sell/seller/product/list?page=${currentPage-1}&size=${size}">上一页</a>
+                     <a href="/sell/seller/category/list?page=${currentPage-1}&size=${size}">上一页</a>
                  </li>
                 </#if>
                 <#list 1..productCategoryPage.getTotalPages() as index>
                     <#if currentPage==index>
                 <li class="disabled"><a href="#">${index}</a></li>
                     <#else>
-                <li><a href="/sell/seller/product/list?page=${index}&size=${size}">${index}</a></li>
+                <li><a href="/sell/seller/category/list?page=${index}&size=${size}">${index}</a></li>
                     </#if>
                 </#list>
                 <#if currentPage gte productCategoryPage.getTotalPages()>

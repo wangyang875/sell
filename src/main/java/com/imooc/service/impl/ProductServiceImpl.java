@@ -107,6 +107,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductInfo> findByCategoryType(Integer categoryType) {
+        return null;
+    }
+
+    @Override
     /**
      * 加库存
      */
@@ -142,4 +147,5 @@ public class ProductServiceImpl implements ProductService {
             repository.save(productInfo);
         }
     }
+
 }

@@ -11,8 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
+
     @Autowired
     ProductCategoryRepository repository;
+    @Override
+    public ProductCategory findByCategoryId(Integer categoryId) {
+        return repository.findByCategoryId(categoryId);
+    }
     @Override
     public ProductCategory findOne(Integer categoryId) {
         return repository.getOne(categoryId);
@@ -35,6 +41,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ProductCategory save(ProductCategory productCategory) {
-        return save(productCategory);
+        return repository.save(productCategory);
     }
 }
