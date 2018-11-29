@@ -6,6 +6,10 @@ spring:
     url: jdbc:mysql://10.141.4.199/sell?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+  redis:
+    host: 10.141.4.199
+    port: 6379
+    password:
 #    设置全局只要是空的字段都不返回到结果中
 #  jackson:
 #    default-property-inclusion: non_null
@@ -24,6 +28,8 @@ server:
 wechat:
     mpAppId: wx3cd7106dd645dbba
     mpAppSecret: 7482cf813d523521829a2a54ec1478c0
+    openAppId: 1234567
+    openAppSecret: abcde
     mchId: 1445123131
     mchKey: 012f1sf15swf1r2f1s12
     Keypath: F:\key

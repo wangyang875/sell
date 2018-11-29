@@ -9,6 +9,9 @@
         <li>
             <a href="/sell/seller/category/list">类目管理</a>
         </li>
+        <li>
+            <a href="/sell/logout">注销</a>
+        </li>
         <li class="dropdown pull-right">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
             <ul class="dropdown-menu">

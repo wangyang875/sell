@@ -27,7 +27,9 @@ public enum ResultEnum {
     PRODUCT_ON_SUCCESS(28,"商品上架成功！"),
     PRODUCT_STATUS_ERROR(29,"商品状态不正确"),
     PRODUCT_INDEX_ADD_SUCCESS(30,"商品修改或添加成功！"),
-    CATEGORY_INDEX_ADD_SUCCESS(31,"类目修改或添加成功！")
+    CATEGORY_INDEX_ADD_SUCCESS(31,"类目修改或添加成功！"),
+    LOGIN_ERROR(32,"登录失败，登录信息不正确！"),
+    LOGOUT_SUCCESS(33,"登出成功！")
     ;
     private Integer code;
     private String msg;

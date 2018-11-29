@@ -21,6 +21,8 @@ import java.net.URLEncoder;
 public class WechatController {
     @Autowired
     private WxMpService wxMpService;
+    @Autowired
+    private WxMpService wxOpenService;
 
     @GetMapping("/authorize")
     public String authorize(@RequestParam("returnUrl") String returnUrl) {
@@ -46,5 +48,26 @@ public class WechatController {
         }
         String openid=wxMpOAuth2AccessToken.getOpenId();
         return "redirect："+retrunUrl+"?openid="+openid;
+    }
+    @GetMapping("/qrAthorize")
+    public String qrAthorize(@RequestParam("returnUrl") String returnUrl){
+        String url="http://localhost:8080/sell/wechat/qrUserInfo";
+        String redirectUrl=wxOpenService.buildQrConnectUrl(url, WxConsts.QRCONNECT_SCOPE_SNSAPI_LOGIN, URLEncoder.encode(returnUrl));
+        return redirectUrl;
+    }
+    @GetMapping("/qrUserInfo")
+    public String qrUserInfo(@RequestParam("code") String code,
+                             @RequestParam("state") String retrunUrl){
+        WxMpOAuth2AccessToken wxMpOAuth2AccessToken=new WxMpOAuth2AccessToken();
+        try {
+            wxMpOAuth2AccessToken=wxOpenService.oauth2getAccessToken(code);
+        } catch (WxErrorException e) {
+            log.error("【微信网页授权】{}", e);
+            throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(),e.getError().getErrorMsg());
+        }
+        log.info("WxMpOAuth2AccessToken={}", wxMpOAuth2AccessToken);
+        String openid=wxMpOAuth2AccessToken.getOpenId();
+        return "redirect："+retrunUrl+"?openid="+openid;
+
     }
 }
