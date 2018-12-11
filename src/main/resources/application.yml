@@ -28,9 +28,11 @@ server:
 wechat:
     mpAppId: wx3cd7106dd645dbba
     mpAppSecret: 7482cf813d523521829a2a54ec1478c0
-    openAppId: 1234567
+    openAppId: oOAAb0s9tWTtnmWTPSat_2otgsQQ
     openAppSecret: abcde
     mchId: 1445123131
     mchKey: 012f1sf15swf1r2f1s12
     Keypath: F:\key
     notifyUrl: localhost:8080/sell/pay/notify
+    templateId:
+      orderStatus: 6Wxmcia348Vgg2xb9zVFBCipVP-02a0w06D42ZxgD6A
