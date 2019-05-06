@@ -5,8 +5,10 @@ import com.imooc.dataobject.ProductInfo;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.form.ProductForm;
+import com.imooc.repository.SellerInfoRepository;
 import com.imooc.service.CategoryService;
 import com.imooc.service.ProductService;
+import com.imooc.utils.GetUserActions;
 import com.imooc.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +39,12 @@ public class SellerProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
-
+//    @Autowired
+//    private StringRedisTemplate redisTemplate;
+//    @Autowired
+//    private SellerInfoRepository repository;
+    @Autowired
+    GetUserActions getUserActions;
     /**
      * 分页查询所有商品
      *
@@ -47,12 +56,16 @@ public class SellerProductController {
     @GetMapping("/list")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "5") Integer size,
-                             Map<String, Object> map) {
+                             Map<String, Object> map,
+                             HttpServletRequest request) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Page<ProductInfo> productInfoPage = productService.findAll(pageRequest);
         map.put("productInfoPage", productInfoPage);
         map.put("currentPage", page);
         map.put("size", size);
+//        String[] userinfo=new GetUserActions().getUserName(request,redisTemplate,repository);
+        String[] userinfo=getUserActions.getUserName(request);
+        log.info(userinfo[0]+","+userinfo[1]+",浏览了商品列表,"+userinfo[2]);
         return new ModelAndView("/product/list", map);
     }
 

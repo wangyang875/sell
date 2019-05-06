@@ -3,17 +3,21 @@ package com.imooc.controller;
 import com.imooc.dto.OrderDTO;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
+import com.imooc.repository.SellerInfoRepository;
 import com.imooc.service.OrderService;
+import com.imooc.utils.GetUserActions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -22,6 +26,12 @@ import java.util.Map;
 public class SellerOrderController {
     @Autowired
     private OrderService orderService;
+//    @Autowired
+//    private StringRedisTemplate redisTemplate;
+//    @Autowired
+//    private SellerInfoRepository sellerInfoRepository;
+    @Autowired
+    GetUserActions getUserActions;
 
     /**
      * 订单列表
@@ -33,12 +43,16 @@ public class SellerOrderController {
     @GetMapping("/list")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "5") Integer size,
-                             Map<String, Object> map) {
+                             Map<String, Object> map,
+                             HttpServletRequest request) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Page<OrderDTO> orderDTOPage = orderService.findlist(pageRequest);
         map.put("orderDTOPage", orderDTOPage);
         map.put("currentPage", page);
         map.put("size", size);
+//        String[] userinfo=new GetUserActions().getUserName(request,redisTemplate,sellerInfoRepository);
+        String[] userinfo=getUserActions.getUserName(request);
+        log.info(userinfo[0]+","+userinfo[1]+",查看了所有的订单,"+userinfo[2]);
         return new ModelAndView("/order/list", map);
     }
 

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
     <!--配置控制台的日志输出格式-->
+    <springProfile name="prod">
+        <property name="log_path" value="/usr/local"/>
+    </springProfile>
+    <springProfile name="local">
+        <property name="log_path" value="F:/logs"/>
+    </springProfile>
     <appender name="consolelog" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>
@@ -24,7 +30,7 @@
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>F:\log\sell/info.%d.log</fileNamePattern>
+            <fileNamePattern>${log_path}/sell/info.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
     <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -41,7 +47,7 @@
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>F:\log\sell/error.%d.log</fileNamePattern>
+            <fileNamePattern>${log_path}/sell/error.%d.log</fileNamePattern>
         </rollingPolicy>
     </appender>
     <root level="info">
