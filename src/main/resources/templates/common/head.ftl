@@ -12,6 +12,9 @@
         <li>
             <a href="/sell/seller/logout">注销</a>
         </li>
+        <li>
+            <a href="/sell/seller/goModify">修改密码</a>
+        </li>
         <li class="dropdown pull-right">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
             <ul class="dropdown-menu">

@@ -34,12 +34,26 @@ spring:
         db-type: mysql
         log-slow-sql: true
         slow-sql-millis: 2000
+  mail:
+    host: smtp.163.com
+    username: wangyang875@163.com
+    password: wangyang2440111
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    protocol: smtps
   jpa:
     show-sql: true
   redis:
     host: 127.0.0.1
     port: 6379
     password:
+  freemarker:
+    cache: false
 #    设置全局只要是空的字段都不返回到结果中
 #  jackson:
 #    default-property-inclusion: non_null
