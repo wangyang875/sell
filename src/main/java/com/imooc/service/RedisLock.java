@@ -20,14 +20,16 @@ public class RedisLock {
      */
     public boolean lock(String key, String value) {
         if (redisTemplate.opsForValue().setIfAbsent(key, value)) {
-            return true;
+            return true;//可以设置就返回true
         }
+        //curentValue=A,线程1和线程2进来，currentTime+TimeOut=B
         String currentValue = redisTemplate.opsForValue().get(key);
         //如果锁过期
         if (!StringUtils.isEmpty(currentValue)
                 && Long.parseLong(currentValue) < System.currentTimeMillis()) {
-            //获取上一个锁的时间
+            //获取上一个锁的时间,同时将自己的时间设置进去，这个操作同一时间只会有一个线程操作
             String oldValue = redisTemplate.opsForValue().getAndSet(key, value);
+            //保证线程1和线程不会都获得锁
             if (!StringUtils.isEmpty(oldValue) && oldValue.equals(currentValue)) {
                 return true;
             }
